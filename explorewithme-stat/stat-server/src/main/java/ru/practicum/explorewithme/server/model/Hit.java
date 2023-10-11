@@ -12,6 +12,7 @@ import static ru.practicum.explorewithme.server.util.Const.DATETIME_PATTERN;
 @Table(name = "hits")
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Getter
 @Setter
 public class Hit {

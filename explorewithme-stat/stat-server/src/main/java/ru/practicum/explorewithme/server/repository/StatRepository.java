@@ -14,7 +14,7 @@ import java.util.List;
 @Repository
 public interface StatRepository extends JpaRepository<Hit, Long> {
     @Query("SELECT new ru.practicum.explorewithme.dto.StatDto(h.app, h.uri, COUNT(h.ip) as count_ip) " +
-            "FROM Hit as h " +
+            "FROM Hit h " +
             "WHERE h.timestamp >= :start " +
             "AND h.timestamp <= :end " +
             "AND h.uri IN :uris " +
@@ -26,8 +26,8 @@ public interface StatRepository extends JpaRepository<Hit, Long> {
             @Param("uris") List<String> uris
     );
 
-    @Query("SELECT new ru.practicum.explorewithme.dto.StatDto(h.app, h.uri, COUNT(DISTINCT(h.ip)) as count_ip) " +
-            "FROM Hit as h " +
+    @Query("SELECT new ru.practicum.explorewithme.dto.StatDto(h.app, h.uri, COUNT(DISTINCT h.ip) as count_ip) " +
+            "FROM Hit h " +
             "WHERE h.timestamp >= :start " +
             "AND h.timestamp <= :end " +
             "AND h.uri IN :uris " +
@@ -40,7 +40,7 @@ public interface StatRepository extends JpaRepository<Hit, Long> {
     );
 
     @Query("SELECT new ru.practicum.explorewithme.dto.StatDto(h.app, h.uri, COUNT(h.ip) as count_ip) " +
-            "FROM Hit as h " +
+            "FROM Hit h " +
             "WHERE h.timestamp >= :start " +
             "AND h.timestamp <= :end " +
             "GROUP BY h.app, h.uri " +
@@ -50,8 +50,8 @@ public interface StatRepository extends JpaRepository<Hit, Long> {
             @Param("end") LocalDateTime end
     );
 
-    @Query("SELECT new ru.practicum.explorewithme.dto.StatDto(h.app, h.uri, COUNT(DISTINCT(h.ip)) as count_ip) " +
-            "FROM Hit as h " +
+    @Query("SELECT new ru.practicum.explorewithme.dto.StatDto(h.app, h.uri, COUNT(DISTINCT h.ip) as count_ip) " +
+            "FROM Hit h " +
             "WHERE h.timestamp >= :start " +
             "AND h.timestamp <= :end " +
             "GROUP BY h.app, h.uri " +
