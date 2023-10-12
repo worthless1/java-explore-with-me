@@ -16,9 +16,8 @@ import static ru.practicum.explorewithme.service.util.Const.DATETIME_PATTERN;
 
 @Getter
 @Setter
-@ToString
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class EventUpdatedDto {
 
     @Size(min = 3, max = 120)

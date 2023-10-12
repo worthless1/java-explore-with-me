@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 import ru.practicum.explorewithme.service.location.dto.LocationDto;
 
 import javax.validation.Valid;
@@ -17,7 +16,6 @@ import static ru.practicum.explorewithme.service.util.Const.DATETIME_PATTERN;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 public class NewEventDto {
 
     @NotBlank

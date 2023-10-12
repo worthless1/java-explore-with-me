@@ -10,12 +10,10 @@ import java.time.LocalDateTime;
 import static ru.practicum.explorewithme.service.util.Const.DATETIME_PATTERN;
 
 
-@Getter
-@Setter
+@Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 public class EventShortDto {
 
     private String title;

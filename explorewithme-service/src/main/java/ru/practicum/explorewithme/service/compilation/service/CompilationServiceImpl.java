@@ -55,8 +55,8 @@ public class CompilationServiceImpl implements CompilationService {
             toUpdate.setTitle(dto.getTitle());
         }
         toUpdate.setPinned(dto.getPinned() != null && dto.getPinned());
-        if (dto.getEvents() != null && !dto.getEvents().isEmpty()) {
-            Set<Long> eventsId = dto.getEvents();
+        if (dto.getEventIds() != null && !dto.getEventIds().isEmpty()) {
+            Set<Long> eventsId = dto.getEventIds();
             Collection<Event> events = eventRepository.findAllByIdIn(eventsId);
             toUpdate.setEvents(new HashSet<>(events));
         }

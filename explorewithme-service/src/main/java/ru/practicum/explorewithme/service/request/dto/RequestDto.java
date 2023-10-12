@@ -12,7 +12,6 @@ import static ru.practicum.explorewithme.service.util.Const.DATETIME_PATTERN;
 @Setter
 @Builder
 @AllArgsConstructor
-@ToString
 public class RequestDto {
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATETIME_PATTERN)

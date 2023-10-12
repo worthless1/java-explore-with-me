@@ -19,6 +19,6 @@ public class CompilationUpdatedDto {
 
     private Boolean pinned;
 
-    private Set<Long> events;
+    private Set<Long> eventIds;
 
 }
