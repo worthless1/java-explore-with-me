@@ -1,6 +1,7 @@
 package ru.practicum.explorewithme.server.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.explorewithme.dto.HitDto;
@@ -14,8 +15,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
-@Transactional
+@Slf4j
 @RequiredArgsConstructor
+@Transactional
 public class StatService {
     private final StatRepository statRepository;
 
@@ -30,15 +32,18 @@ public class StatService {
         validateDateRange(start, end);
 
         if (unique) {
+            log.info("Get all stats with isUnique {} when uris {} ", unique, uris);
             return uris == null ? statRepository.getAllUniqueStats(start, end) : statRepository.getAllUniqueStatsWithUris(start, end, uris);
         } else {
+            log.info("Get all stats {} ", unique);
             return uris == null ? statRepository.getAllStats(start, end) : statRepository.getAllStatsWithUris(start, end, uris);
         }
     }
 
     private void validateDateRange(LocalDateTime start, LocalDateTime end) {
         if (end.isBefore(start)) {
-            throw new ValidationException("The end date and time must be after the start date and time");
+            log.info("End time cannot be earlier than the start tim");
+            throw new ValidationException("End date and time must be after the start date and time");
         }
     }
 

@@ -5,13 +5,14 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import lombok.Data;
+import lombok.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class HitDto {
-    private Long id;
-
     @NotBlank(message = "app name cannot be empty")
     @Size(max = 128)
     private String app;
