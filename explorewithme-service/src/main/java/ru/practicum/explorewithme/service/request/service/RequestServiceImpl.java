@@ -145,8 +145,9 @@ public class RequestServiceImpl implements RequestService {
     @Transactional(readOnly = true)
     @Override
     public List<RequestDto> getRequestByUserId(Long userId) {
-        userRepository.findById(userId)
-                .orElseThrow(() -> new NotFoundException(String.format("User with id=%d hasn't found", userId)));
+        if (!userRepository.existsById(userId)) {
+            throw new NotFoundException(String.format("User with id=%d hasn't found", userId));
+        }
         log.info("Get participation request for user with id= {}", userId);
         return requestRepository.findAllByRequesterId(userId).stream()
                 .map(RequestMapper::mapToParticipationRequestDto)
