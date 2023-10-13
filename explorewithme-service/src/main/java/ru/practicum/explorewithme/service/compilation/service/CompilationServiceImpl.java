@@ -55,8 +55,8 @@ public class CompilationServiceImpl implements CompilationService {
             toUpdate.setTitle(dto.getTitle());
         }
         toUpdate.setPinned(dto.getPinned() != null && dto.getPinned());
-        if (dto.getEventIds() != null && !dto.getEventIds().isEmpty()) {
-            Set<Long> eventsId = dto.getEventIds();
+        if (dto.getEvents() != null && !dto.getEvents().isEmpty()) {
+            Set<Long> eventsId = dto.getEvents();
             Collection<Event> events = eventRepository.findAllByIdIn(eventsId);
             toUpdate.setEvents(new HashSet<>(events));
         }
@@ -74,17 +74,13 @@ public class CompilationServiceImpl implements CompilationService {
     @Override
     public List<CompilationDto> getAllCompilationsPublic(Boolean pinned, Integer from, Integer size) {
         log.info("Get all compilations");
-        return pinned == null ?
-                compilationRepository.findAll(new Pagination(from, size, Sort.unsorted()))
-                        .getContent()
-                        .stream()
-                        .map(CompilationMapper::mapToCompilationDto)
-                        .collect(Collectors.toList()) :
-                compilationRepository.findAllByPinned(pinned, new Pagination(from, size, Sort.unsorted()))
-                        .getContent()
-                        .stream()
-                        .map(CompilationMapper::mapToCompilationDto)
-                        .collect(Collectors.toList());
+
+        return compilationRepository.findAllByPinnedAndPagination(
+                        pinned, new Pagination(from, size, Sort.unsorted()))
+                .getContent()
+                .stream()
+                .map(CompilationMapper::mapToCompilationDto)
+                .collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
