@@ -1,8 +1,10 @@
-package ru.practicum.explorewithme.service.compilation.dto;
+package ru.practicum.explorewithme.service.compilation.mapper;
 
 import lombok.experimental.UtilityClass;
+import ru.practicum.explorewithme.service.compilation.dto.CompilationDto;
+import ru.practicum.explorewithme.service.compilation.dto.NewCompilationDto;
 import ru.practicum.explorewithme.service.compilation.model.Compilation;
-import ru.practicum.explorewithme.service.event.dto.EventMapper;
+import ru.practicum.explorewithme.service.event.mapper.EventMapper;
 
 import java.util.stream.Collectors;
 

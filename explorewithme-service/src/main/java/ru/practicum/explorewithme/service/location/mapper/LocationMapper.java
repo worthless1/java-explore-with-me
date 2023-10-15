@@ -1,7 +1,8 @@
-package ru.practicum.explorewithme.service.location.dto;
+package ru.practicum.explorewithme.service.location.mapper;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import ru.practicum.explorewithme.service.location.dto.LocationDto;
 import ru.practicum.explorewithme.service.location.model.Location;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)

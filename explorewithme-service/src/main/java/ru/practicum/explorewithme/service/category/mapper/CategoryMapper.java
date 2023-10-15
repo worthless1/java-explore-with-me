@@ -1,7 +1,9 @@
-package ru.practicum.explorewithme.service.category.dto;
+package ru.practicum.explorewithme.service.category.mapper;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import ru.practicum.explorewithme.service.category.dto.CategoryDto;
+import ru.practicum.explorewithme.service.category.dto.NewCategoryDto;
 import ru.practicum.explorewithme.service.category.model.Category;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)

@@ -7,7 +7,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.explorewithme.service.category.dto.CategoryDto;
-import ru.practicum.explorewithme.service.category.dto.CategoryMapper;
+import ru.practicum.explorewithme.service.category.mapper.CategoryMapper;
 import ru.practicum.explorewithme.service.category.dto.NewCategoryDto;
 import ru.practicum.explorewithme.service.category.model.Category;
 import ru.practicum.explorewithme.service.category.repository.CategoryRepository;

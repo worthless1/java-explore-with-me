@@ -6,7 +6,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.explorewithme.service.compilation.dto.CompilationDto;
-import ru.practicum.explorewithme.service.compilation.dto.CompilationMapper;
+import ru.practicum.explorewithme.service.compilation.mapper.CompilationMapper;
 import ru.practicum.explorewithme.service.compilation.dto.CompilationUpdatedDto;
 import ru.practicum.explorewithme.service.compilation.dto.NewCompilationDto;
 import ru.practicum.explorewithme.service.compilation.model.Compilation;
@@ -22,8 +22,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static ru.practicum.explorewithme.service.compilation.dto.CompilationMapper.mapToCompilationDto;
-import static ru.practicum.explorewithme.service.compilation.dto.CompilationMapper.mapToNewCompilation;
+import static ru.practicum.explorewithme.service.compilation.mapper.CompilationMapper.mapToCompilationDto;
+import static ru.practicum.explorewithme.service.compilation.mapper.CompilationMapper.mapToNewCompilation;
 
 @Service
 @Slf4j
