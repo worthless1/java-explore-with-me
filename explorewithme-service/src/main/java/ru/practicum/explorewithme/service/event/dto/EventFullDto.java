@@ -3,11 +3,13 @@ package ru.practicum.explorewithme.service.event.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import ru.practicum.explorewithme.service.category.dto.CategoryDto;
+import ru.practicum.explorewithme.service.comment.dto.CommentDto;
 import ru.practicum.explorewithme.service.location.dto.LocationDto;
 import ru.practicum.explorewithme.service.user.dto.UserShortDto;
 import ru.practicum.explorewithme.service.event.model.enums.EventState;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static ru.practicum.explorewithme.service.util.Const.DATETIME_PATTERN;
 
@@ -52,5 +54,7 @@ public class EventFullDto {
     private boolean requestModeration;
 
     private UserShortDto initiator;
+
+    private List<CommentDto> comments;
 
 }

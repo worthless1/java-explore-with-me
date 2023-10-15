@@ -12,6 +12,7 @@ import ru.practicum.explorewithme.dto.StatDto;
 import ru.practicum.explorewithme.service.category.model.Category;
 import ru.practicum.explorewithme.service.category.repository.CategoryRepository;
 import ru.practicum.explorewithme.service.event.dto.*;
+import ru.practicum.explorewithme.service.event.mapper.EventMapper;
 import ru.practicum.explorewithme.service.event.model.Event;
 import ru.practicum.explorewithme.service.event.model.enums.EventRequestStatus;
 import ru.practicum.explorewithme.service.event.model.enums.EventState;
@@ -21,6 +22,7 @@ import ru.practicum.explorewithme.service.event.repository.EventRepository;
 import ru.practicum.explorewithme.service.exception.NotFoundException;
 import ru.practicum.explorewithme.service.exception.ValidateDateException;
 import ru.practicum.explorewithme.service.exception.ValidateException;
+import ru.practicum.explorewithme.service.location.mapper.LocationMapper;
 import ru.practicum.explorewithme.service.location.model.Location;
 import ru.practicum.explorewithme.service.location.repository.LocationRepository;
 import ru.practicum.explorewithme.service.request.model.Request;
@@ -36,11 +38,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static ru.practicum.explorewithme.service.event.dto.EventMapper.mapToEventFullDto;
-import static ru.practicum.explorewithme.service.event.dto.EventMapper.mapToNewEvent;
 import static ru.practicum.explorewithme.service.event.model.enums.EventState.PENDING;
 import static ru.practicum.explorewithme.service.event.model.enums.EventState.PUBLISHED;
-import static ru.practicum.explorewithme.service.location.dto.LocationMapper.mapToLocation;
 import static ru.practicum.explorewithme.service.util.Const.*;
 
 @Service
@@ -84,7 +83,7 @@ public class EventServiceImpl implements EventService {
         event = eventRepository.save(event);
         locationRepository.save(event.getLocation());
         log.info("Update event with id= {} in admin ", eventId);
-        return mapToEventFullDto(event);
+        return EventMapper.mapToEventFullDto(event);
     }
 
     @Override
@@ -93,11 +92,11 @@ public class EventServiceImpl implements EventService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException("User with id=" + userId + " not found"));
         Category category = getCategoryForEvent(newEventDto.getCategory());
-        Location savedLocation = locationRepository.save(mapToLocation(newEventDto.getLocation()));
-        Event event = eventRepository.save(mapToNewEvent(newEventDto, savedLocation, user, category));
+        Location savedLocation = locationRepository.save(LocationMapper.mapToLocation(newEventDto.getLocation()));
+        Event event = eventRepository.save(EventMapper.mapToNewEvent(newEventDto, savedLocation, user, category));
         confirmedRequestsForOneEvent(event);
         log.info("User id= {} create event in admin", userId);
-        return mapToEventFullDto(event);
+        return EventMapper.mapToEventFullDto(event);
     }
 
     @Transactional(readOnly = true)
@@ -118,7 +117,7 @@ public class EventServiceImpl implements EventService {
         Event event = getEventByIdAndInitiatorId(eventId, userId);
         confirmedRequestsForOneEvent(event);
         log.info("Get event with id={} of user with id= {} in private", eventId, userId);
-        return mapToEventFullDto(event);
+        return EventMapper.mapToEventFullDto(event);
     }
 
     @Override
@@ -131,7 +130,7 @@ public class EventServiceImpl implements EventService {
         Event eventSaved = eventRepository.save(event);
         locationRepository.save(eventSaved.getLocation());
         log.info("Update event with id={} of user with id= {} in private", eventId, userId);
-        return mapToEventFullDto(eventSaved);
+        return EventMapper.mapToEventFullDto(eventSaved);
     }
 
     public List<EventShortDto> getEventsPublic(String text,
@@ -191,7 +190,7 @@ public class EventServiceImpl implements EventService {
         if (!PUBLISHED.equals(event.getState())) {
             throw new NotFoundException("Event with id=" + id + " not published");
         }
-        EventFullDto fullDto = mapToEventFullDto(event);
+        EventFullDto fullDto = EventMapper.mapToEventFullDto(event);
 
         List<String> uris = List.of("/events/" + event.getId());
         List<StatDto> views = statClient.getStats(START_DATE, END_DATE, uris, null).getBody();
@@ -284,7 +283,7 @@ public class EventServiceImpl implements EventService {
             event.setTitle(eventDto.getTitle());
         }
         if (eventDto.getLocation() != null) {
-            event.setLocation(mapToLocation(eventDto.getLocation()));
+            event.setLocation(LocationMapper.mapToLocation(eventDto.getLocation()));
         }
         if (eventDto.getEventDate() != null) {
             validateEventDate(eventDto.getEventDate());
@@ -359,4 +358,5 @@ public class EventServiceImpl implements EventService {
             }
         }
     }
+
 }
