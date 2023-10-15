@@ -6,12 +6,14 @@ import lombok.ToString;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.format.annotation.DateTimeFormat;
 import ru.practicum.explorewithme.service.category.model.Category;
+import ru.practicum.explorewithme.service.comment.model.Comment;
 import ru.practicum.explorewithme.service.location.model.Location;
 import ru.practicum.explorewithme.service.user.model.User;
 import ru.practicum.explorewithme.service.event.model.enums.EventState;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static ru.practicum.explorewithme.service.util.Const.DATETIME_PATTERN;
 import static ru.practicum.explorewithme.service.event.model.enums.EventState.PENDING;
@@ -78,4 +80,7 @@ public class Event {
     @Column(name = "published_on")
     @DateTimeFormat(pattern = DATETIME_PATTERN)
     private LocalDateTime publishedOn;
+
+    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Comment> comments;
 }
